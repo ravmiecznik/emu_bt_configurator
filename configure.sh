@@ -19,8 +19,9 @@ function nice_echo {
 }
 
 nice_echo ERASING EEPROM MEMORY
-avrdude -p m128 -c usbasp -V -U eeprom:w:${sources}/eeprom_empty_image.bin:r
+avrdude -p m128 -c usbasp -V -U flash:w:${sources}/eeprom_wiper.hex
 status=$?
+sleep 2 
 
 if [ $status = 0 ]
 then
@@ -32,11 +33,13 @@ status=$?
 if [ $status = 0 ]
 then
     tim=5
-    nice_echo RESET
-    sleep 1
-    avrdude -p m128 -c usbasp
-    nice_echo WAIT ${tim}s
     sleep $tim
+    nice_echo HARD REBOOT REQUIRED, UNPLUG AND CONNECT USBASP BACK, HIT ENTER
+    read
+    nice_echo RESET
+    #sleep 1
+    avrdude -p m128 -c usbasp
+    #nice_echo WAIT ${tim}s
     nice_echo CHECK RESULT
     avrdude -p m128 -c usbasp -V -U eeprom:r:${results}/eeprom.bin:r
     nice_echo RESULT OUTPUT
