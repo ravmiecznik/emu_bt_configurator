@@ -26,7 +26,7 @@ sleep 2
 if [ $status = 0 ]
 then
     nice_echo UPLOAD BOOTLOADER AND CONFIG TOOL
-    avrdude -p m128 -c usbasp -V -U flash:w:${sources}/emubt_bootloader_and_configurator.bin:r
+    avrdude -p m128 -c usbasp -V -U flash:w:${sources}/emubt_bootloader3_and_configurator.bin:r
 fi
 status=$?
 
