@@ -51,5 +51,7 @@ then
     #echo exit status $exit_status
 fi
 
+avrdude -p m128 -c usbasp
+
 exit $exit_status
 
